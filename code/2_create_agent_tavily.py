@@ -33,7 +33,7 @@ def search(query: str) -> str:
 if provider == "openai":
     llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo")
 elif provider == "ollama":
-    llm = ChatOllama(temperature=0, model="gemma4:e2b")
+    llm = ChatOllama(temperature=0, model="gemma4:e4b")
 else:
     raise ValueError(
         "Provider not supported. Use --provider openai or --provider ollama."

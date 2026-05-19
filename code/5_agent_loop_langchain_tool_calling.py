@@ -1,13 +1,20 @@
+import argparse
 from langchain.chat_models import init_chat_model
 from langchain.tools import tool
 from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage
 from langsmith import traceable
 from dotenv import load_dotenv
-
 load_dotenv()
 
 MAX_ITERATIONS = 10
-MODEL = "gemma4:e2b"
+
+parser = argparse.ArgumentParser(
+    description="Rodar o script com parâmetros configuráveis."
+)
+parser.add_argument("--provider", type=str, default="ollama")
+
+args = parser.parse_args()
+provider = args.provider
 
 # --- Tools (LangChain @tool decorator) ---
 
@@ -46,14 +53,25 @@ def apply_discount(price: float, discount_tier: str) -> float:
 
 @traceable(name="LangChain Agent Loop")
 def run_agent(question: str):
+
     tools = [get_product_price, apply_discount]
     tools_dict = {t.name:t for t in tools}
 
-    llm = init_chat_model(
-        f"ollama:{MODEL}", 
-        temperature=0
+    if provider == "ollama":
+        llm = init_chat_model(
+            "ollama:gemma4:e4b", 
+            temperature=0
         )
-    
+    elif provider == "openai":
+        llm = init_chat_model(
+            "openai:gpt-3.5-turbo", 
+            temperature=0
+        )
+    else:
+        raise ValueError(
+            "Provider not supported. Use --provider openai or --provider ollama."
+        )
+
     llm_with_tools = llm.bind_tools(tools)
 
     print(f"Question: {question}")
@@ -79,6 +97,47 @@ def run_agent(question: str):
         ),
         HumanMessage(content=question)
     ]
+
+    for iteration in range(1, MAX_ITERATIONS + 1):
+        
+        print(f"\n--- Iteration {iteration} ---")
+
+        ai_message = llm_with_tools.invoke(messages)
+
+        tool_calls = ai_message.tool_calls
+
+        # If no tool calls, this is the final answer
+        if not tool_calls:
+            print(f"\nFinal Answer: {ai_message.content}")
+            return ai_message.content
+        
+        # Process only the FIRST tool call - force one tool per iteration
+        tool_call = tool_calls[0]
+        tool_name = tool_call.get("name")
+        tool_args = tool_call.get("args", {})
+        tool_call_id = tool_call.get("id")
+
+        print(f"    [Tool Selected] {tool_name} with args: {tool_args}")
+
+        tool_to_use = tools_dict.get(tool_name)
+        if tool_to_use is None:
+            raise ValueError(f"Tool '{tool_name}' not found")
+        
+        observation = tool_to_use.invoke(tool_args)
+
+        print(f"    [Tool Result] {observation}")
+
+        messages.append(ai_message)
+        messages.append(
+            ToolMessage(
+                content=str(observation),
+                tool_call_id = tool_call_id
+            )
+        )
+    
+    print("ERROS: Max iterations reached without a final answer")
+    return None
+
 
 if __name__ == "__main__":
     print("Hello LangChain Agent (.bind_tools)!")
