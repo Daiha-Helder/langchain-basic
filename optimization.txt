@@ -1,0 +1,54 @@
+====================================================================
+MELHORES AUTORES DE LIVROS DE OTIMIZAÇÃO (MATEMÁTICA E ENGENHARIA)
+====================================================================
+
+Estes autores escreveram as maiores referências acadêmicas e profissionais 
+utilizadas em ciência de dados, pesquisa operacional e engenharias.
+
+--------------------------------------------------------------------
+1. Stephen Boyd (com Lieven Vandenberghe)
+--------------------------------------------------------------------
+* Obra: "Convex Optimization"
+* Descrição: A obra definitiva e mais influente do século sobre otimização convexa. 
+  É amplamente adotada em aprendizado de máquina (Machine Learning) e processamento de sinais.
+* Link de Referência: https://stanford.edu
+
+--------------------------------------------------------------------
+2. Jorge Nocedal (com Stephen J. Wright)
+--------------------------------------------------------------------
+* Obra: "Numerical Optimization"
+* Descrição: Considerado o melhor livro introdutório e avançado para programação 
+  não-linear e algoritmos numéricos práticos.
+* Link de Referência: https://springer.com
+
+--------------------------------------------------------------------
+3. Dimitri Bertsekas
+--------------------------------------------------------------------
+* Obras: "Nonlinear Programming" e "Convex Analysis and Optimization"
+* Descrição: Professor do MIT. Suas obras são famosas pelo rigor matemático 
+  combinado com forte intuição de engenharia.
+* Link de Referência: http://athenasc.com
+
+--------------------------------------------------------------------
+4. Dimitris Bertsimas
+--------------------------------------------------------------------
+* Obra: "Introduction to Linear Optimization"
+* Descrição: Uma das maiores autoridades mundiais em Pesquisa Operacional.
+* Link de Referência: https://dynamic-ideas.com
+
+--------------------------------------------------------------------
+5. David G. Luenberger
+--------------------------------------------------------------------
+* Obra: "Linear and Nonlinear Programming"
+* Descrição: Um dos livros didáticos mais tradicionais e fáceis de seguir 
+  para estudantes de graduação e pós-graduação.
+* Link de Referência: https://springer.com
+
+--------------------------------------------------------------------
+6. Jorge A. W. Gut (Referência Nacional)
+--------------------------------------------------------------------
+* Obra: "Programação Matemática para Otimização de Processos"
+* Descrição: Professor da Escola Politécnica da USP. Uma das melhores e mais 
+  didáticas obras em português voltada para a engenharia.
+* Link de Referência: https://blucher.com.br
+====================================================================
